@@ -1,4 +1,4 @@
-﻿using CitizenFX.Core;
+using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,9 +35,15 @@ namespace vorpstores_cl
                 float Pedheading = float.Parse(store["NPCStore"][3].ToString());
 
                 int _blip = Function.Call<int>((Hash)0x554D9D53F696D002, 1664425300, x, y, z);
-                Function.Call((Hash)0x74F74D3207ED525C, _blip, blipIcon, 1);
-                Function.Call((Hash)0x9CB1A1623062F402, _blip, store["name"].ToString());
-                StoreBlips.Add(_blip);
+
+
+                // If the blip value has been set to false, do not render blipIcon nor its map description
+                if (! Equals(blipIcon, "false")) 
+                {
+                    Function.Call((Hash)0x74F74D3207ED525C, _blip, blipIcon, 1);
+                    Function.Call((Hash)0x9CB1A1623062F402, _blip, store["name"].ToString());
+                    StoreBlips.Add(_blip);
+                }
 
                 int _PedShop = API.CreatePed(HashPed, Pedx, Pedy, Pedz, Pedheading, false, true, true, true);
                 Function.Call((Hash)0x283978A15512B2FE, _PedShop, true);
