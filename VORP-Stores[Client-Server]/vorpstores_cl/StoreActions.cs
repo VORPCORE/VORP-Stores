@@ -1,4 +1,4 @@
-﻿using CitizenFX.Core;
+using CitizenFX.Core;
 using MenuAPI;
 using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
@@ -10,8 +10,14 @@ namespace vorpstores_cl
         private static int ObjectStore;
         private static int CamStore;
         public static int LaststoreId;
+        public static List<int> _objectStoreList;
+
         public static async Task EnterBuyStore(int storeId)
         {
+            //Debug.WriteLine($"Entering shop {storeId}");
+
+            _objectStoreList = new List<int>();
+
             LaststoreId = storeId;
             float Camerax = float.Parse(GetConfig.Config["Stores"][storeId]["CameraMain"][0].ToString());
             float Cameray = float.Parse(GetConfig.Config["Stores"][storeId]["CameraMain"][1].ToString());

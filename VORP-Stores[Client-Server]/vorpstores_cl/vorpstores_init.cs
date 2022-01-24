@@ -1,4 +1,4 @@
-﻿using CitizenFX.Core;
+using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +49,10 @@ namespace vorpstores_cl
                 API.FreezeEntityPosition(_PedShop, true);
                 API.SetBlockingOfNonTemporaryEvents(_PedShop, true);
                 API.SetModelAsNoLongerNeeded(HashPed);
+
+                //DebugConsole.WriteLine($"Shop {store["name"]} ready");
             }
+            Debug.WriteLine("Shops ready");
         }
 
         [Tick]
