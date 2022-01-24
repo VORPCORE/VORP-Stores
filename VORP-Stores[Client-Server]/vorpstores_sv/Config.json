@@ -1,6 +1,6 @@
 {
   "defaultlang": "Es", // set your language
-
+  "OpenShopKey": "0xD9D0E1C0",
   "Stores": [
     {
       "name": "Tienda General",
