@@ -1,8 +1,13 @@
-using CitizenFX.Core;
+﻿using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
+using CitizenFX.Core.Native;
+using CitizenFX.Core;
+using static CitizenFX.Core.Native.API;
+
 
 namespace vorpstores_cl
 {
@@ -17,11 +22,19 @@ namespace vorpstores_cl
 
         public static async Task InitStores()
         {
-            await Delay(15000);
             Menus.MainMenu.GetMenu();
+            var stores = GetConfig.Config["Stores"];
 
-            foreach (var store in GetConfig.Config["Stores"])
+            if (stores.Count() == 0)
             {
+                Debug.WriteLine("Shop config is empty");
+                return;
+            }
+
+            foreach (var store in stores)
+            {
+                //Debug.WriteLine($"Init shop {store["name"]}");
+
                 string ped = store["NPCModel"].ToString();
                 uint HashPed = (uint)API.GetHashKey(ped);
                 await LoadModel(HashPed);
