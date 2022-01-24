@@ -65,10 +65,7 @@ namespace vorpstores_cl.Menus
 
                 foreach (var item in GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"])
                 {
-                    MenuListItem _itemToBuy = new MenuListItem(GetConfig.ItemsFromDB[item["Name"].ToString()]["label"].ToString() + $" ${item["BuyPrice"]}", quantityList, 0, "")
-                    {
-
-                    };
+                    MenuListItem _itemToBuy = new MenuListItem(GetConfig.ItemsFromDB[item["Name"].ToString()]["label"].ToString() + $" ${item["BuyPrice"]}", quantityList, 0, "") { };
 
                     buyMenu.AddMenuItem(_itemToBuy);
                     MenuController.BindMenuItem(buyMenu, buyMenuConfirm, _itemToBuy);
