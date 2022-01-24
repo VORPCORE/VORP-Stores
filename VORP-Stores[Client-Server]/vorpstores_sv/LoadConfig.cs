@@ -21,14 +21,14 @@ namespace vorpstores_sv
 
         public LoadConfig()
         {
-            EventHandlers[$"{API.GetCurrentResourceName()}:getConfig"] += new Action<Player>(getConfig);
-
             LoadConfigAndLang();
-            LoadItemsFromDB();
+
+            EventHandlers[$"{API.GetCurrentResourceName()}:getConfig"] += new Action<Player>(getConfig);
         }
 
         private void LoadConfigAndLang()
         {
+            Debug.WriteLine("Load config and lang");
             if (File.Exists($"{resourcePath}/Config.json"))
             {
                 ConfigString = File.ReadAllText($"{resourcePath}/Config.json", Encoding.UTF8);
@@ -48,10 +48,13 @@ namespace vorpstores_sv
             {
                 Debug.WriteLine($"{API.GetCurrentResourceName()}: Config.json Not Found");
             }
+
+            LoadItemsFromDB();
         }
 
         public async Task LoadItemsFromDB()
         {
+            Debug.WriteLine("Load Items From DB");
             Exports["ghmattimysql"].execute("SELECT * FROM items", new[] { "" }, new Action<dynamic>((result) =>
             {
                 if (result.Count == 0)
@@ -68,6 +71,7 @@ namespace vorpstores_sv
                         data_item.Add("limit", i.limit);
                         data_item.Add("type", i.type);
                         ItemsFromDB.Add(i.item, data_item);
+                        //Debug.WriteLine($"label {i.label}, limit {i.limit}, type {i.type}");
                     }
 
                 }
@@ -77,6 +81,7 @@ namespace vorpstores_sv
 
         private void getConfig([FromSource]Player source)
         {
+            Debug.WriteLine($"Shops: {source.Name} request config");
             string SItemsFromDB = JsonConvert.SerializeObject(ItemsFromDB);
             source.TriggerEvent($"{API.GetCurrentResourceName()}:SendConfig", ConfigString, Langs, SItemsFromDB);
         }
