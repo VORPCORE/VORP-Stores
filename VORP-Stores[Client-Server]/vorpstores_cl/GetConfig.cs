@@ -1,4 +1,4 @@
-﻿using CitizenFX.Core;
+using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using Newtonsoft.Json.Linq;
 using System;
@@ -21,7 +21,9 @@ namespace vorpstores_cl
 
         private void LoadDefaultConfig(string dc, ExpandoObject dl, string ifdb)
         {
+            //Debug.WriteLine($"Shop config received");
             Config = JObject.Parse(dc);
+            //Debug.WriteLine($"Config {Config.Count}");
 
             foreach (var l in dl)
             {
@@ -29,6 +31,7 @@ namespace vorpstores_cl
             }
 
             ItemsFromDB = JObject.Parse(ifdb);
+            Debug.WriteLine($"Shop Items {ItemsFromDB.Count}");
             vorpstores_init.InitStores();
         }
 

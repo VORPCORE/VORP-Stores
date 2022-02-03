@@ -50,7 +50,7 @@ namespace vorpstores_sv
                             }
                             else
                             {
-                                source.TriggerEvent("vorp:Tip", LoadConfig.Langs["NoMoney"], 4000);
+                                source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
                             }
                         }
 
@@ -75,13 +75,13 @@ namespace vorpstores_sv
                 int count = itemcount;
                 if (quantity > count)
                 {
-                    source.TriggerEvent("vorp:Tip", LoadConfig.Langs["NoEnought"], 4000);
+                    source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoEnought"], 4000);
                 }
                 else
                 {
                     UserCharacter.addCurrency(0, totalCost);
                     TriggerEvent("vorpCore:subItem", _source, name, quantity);
-                    source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["Sold"], quantity, LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), 4000);
+                    source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["Sold"], quantity, LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), 4000);
                 }
             }), name);
 

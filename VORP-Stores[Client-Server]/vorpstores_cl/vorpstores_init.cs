@@ -3,6 +3,11 @@ using CitizenFX.Core.Native;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
+using CitizenFX.Core.Native;
+using CitizenFX.Core;
+using static CitizenFX.Core.Native.API;
+
 
 namespace vorpstores_cl
 {
@@ -17,11 +22,19 @@ namespace vorpstores_cl
 
         public static async Task InitStores()
         {
-            await Delay(15000);
             Menus.MainMenu.GetMenu();
+            var stores = GetConfig.Config["Stores"];
 
-            foreach (var store in GetConfig.Config["Stores"])
+            if (stores.Count() == 0)
             {
+                Debug.WriteLine("Shop config is empty");
+                return;
+            }
+
+            foreach (var store in stores)
+            {
+                //Debug.WriteLine($"Init shop {store["name"]}");
+
                 string ped = store["NPCModel"].ToString();
                 uint HashPed = (uint)API.GetHashKey(ped);
                 await LoadModel(HashPed);
@@ -49,7 +62,10 @@ namespace vorpstores_cl
                 API.FreezeEntityPosition(_PedShop, true);
                 API.SetBlockingOfNonTemporaryEvents(_PedShop, true);
                 API.SetModelAsNoLongerNeeded(HashPed);
+
+                //DebugConsole.WriteLine($"Shop {store["name"]} ready");
             }
+            Debug.WriteLine("Shops ready");
         }
 
         [Tick]
@@ -59,6 +75,12 @@ namespace vorpstores_cl
 
             int pid = API.PlayerPedId();
             Vector3 pCoords = API.GetEntityCoords(pid, true, true);
+
+            string shopOpenKeyHex = GetConfig.Config["OpenShopKey"].ToString();
+            //Debug.WriteLine(shopOpenKeyHex);
+            uint shopOpenKey = Convert.ToUInt32(shopOpenKeyHex, 16);
+            //Debug.WriteLine(shopOpenKey.ToString());
+            //uint shopOpenKey = uint.Parse(GetConfig.Config["OpenShopKey"].ToString());
 
             for (int i = 0; i < GetConfig.Config["Stores"].Count(); i++)
             {
@@ -70,7 +92,7 @@ namespace vorpstores_cl
                 if (API.GetDistanceBetweenCoords(pCoords.X, pCoords.Y, pCoords.Z, x, y, z, true) <= radius)
                 {
                     await DrawTxt(GetConfig.Langs["PressToOpen"], 0.5f, 0.9f, 0.7f, 0.7f, 255, 255, 255, 255, true, true);
-                    if (API.IsControlJustPressed(2, 0xD9D0E1C0))
+                    if (API.IsControlJustPressed(2, shopOpenKey))
                     {
                         await StoreActions.EnterBuyStore(i);
                     }

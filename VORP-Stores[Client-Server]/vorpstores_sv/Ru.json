@@ -1,0 +1,20 @@
+﻿{
+  "DescMainMenu": "Купля & Продажа",
+  "Quantity": "Количество",
+  "BuyButton": "Купить",
+  "BuyMenuDesc": "Купить товар",
+  "BuyMenuConfirmDesc": "Подтвердите покупку",
+  "BuyConfirmButtonYes": "Купить {0} {1} за ${2}",
+  "BuyConfirmButtonNo": "Отмена",
+  "SellButton": "Продать",
+  "SellMenuDesc": "Продать товар",
+  "SellMenuConfirmDesc": "Подтвердите продажу",
+  "SellConfirmButtonYes": "Продать {0} {1} за ${2}",
+  "SellConfirmButtonNo": "Отмена",
+  "NoMoney": "У вас недостаточно денег",
+  "NoMore": "Вы не можете нести больше {0}",
+  "NoEnought": "У вас недостаточно предметов",
+  "Bought": "Вы купили {0} {1} за ${2",
+  "Sold": "Вы продали {0} {1} за ${2}",
+  "PressToOpen": "[~e~ПРОБЕЛ~q~] Магазин"
+}
