@@ -47,11 +47,13 @@ namespace vorpstores_sv
                             {
                                 UserCharacter.removeCurrency(0, totalCost);
                                 TriggerEvent("vorpCore:addItem", _source, name, quantity);
-                                //source.TriggerEvent("vorp:TipBottom", string.Format(LoadConfig.Langs["Bought"], quantity + LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), 4000);
+
+                                
+                                source.TriggerEvent("vorp:TipBottom", string.Format(LoadConfig.Langs["Bought"], quantity,  LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), 4000);
                             }
                             else
                             {
-                                source.TriggerEvent("vorp:Tip", LoadConfig.Langs["NoMoney"], 4000);
+                                source.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["NoMoney"], 4000);
                             }
                         }
 
@@ -76,13 +78,14 @@ namespace vorpstores_sv
                 int count = itemcount;
                 if (quantity > count)
                 {
-                    source.TriggerEvent("vorp:Tip", LoadConfig.Langs["NoEnought"], 4000);
+                    source.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["NoEnought"], 4000);
                 }
                 else
                 {
                     UserCharacter.addCurrency(0, totalCost);
                     TriggerEvent("vorpCore:subItem", _source, name, quantity);
-                    //source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["Sold"], quantity, LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), 4000);
+                    
+                    source.TriggerEvent("vorp:TipBottom", string.Format(LoadConfig.Langs["Sold"], quantity, LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), 4000);
                 }
             }), name);
 
