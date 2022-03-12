@@ -4,7 +4,8 @@
     "DrawTextPosX": 0.5,
     "DrawTextPosY": 0.9,
     "DrawTextSizeX": 0.4,
-    "DrawTextSizeY": 0.4
+    "DrawTextSizeY": 0.4,
+    "MessageDuration" : 5 // in seconds
   },
   "Stores": [
     {
