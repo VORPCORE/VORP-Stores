@@ -57,6 +57,24 @@ namespace vorpstores_cl
 
         }
 
+        public static async Task CreateObjectOnTable(int storeId, int index, string list)
+        {
+            DeleteObject(ref ObjectStore);
+            bool spawnObjectEnabled = bool.Parse(GetConfig.Config["Stores"][LaststoreId]["SpawnObjects"].ToString());
+
+            if (spawnObjectEnabled)
+            {
+                float objectX = float.Parse(GetConfig.Config["Stores"][LaststoreId]["SpawnObjectStore"][0].ToString());
+                float objectY = float.Parse(GetConfig.Config["Stores"][LaststoreId]["SpawnObjectStore"][1].ToString());
+                float objectZ = float.Parse(GetConfig.Config["Stores"][LaststoreId]["SpawnObjectStore"][2].ToString());
+                float objectH = float.Parse(GetConfig.Config["Stores"][LaststoreId]["SpawnObjectStore"][3].ToString());
+                uint idObject = (uint)GetHashKey(GetConfig.Config["StoreTemplates"][storeId][list][index]["ObjectModel"].ToString());
+                await vorpstores_init.LoadModel(idObject);
+                ObjectStore = CreateObject(idObject, objectX, objectY, objectZ, false, true, true, true, true);
+            }
+
+        }
+
         public static async Task ExitBuyStore()
         {
             await Delay(100);
