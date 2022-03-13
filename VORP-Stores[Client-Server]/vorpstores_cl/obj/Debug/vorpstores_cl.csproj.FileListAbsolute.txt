@@ -20,3 +20,4 @@ F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\build\vorp_s
 F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_cl\obj\Debug\vorpstores_cl.csproj.CoreCompileInputs.cache
 F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_cl\obj\Debug\vorpstores_cl.net.dll
 F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_cl\obj\Debug\vorpstores_cl.net.pdb
+F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_cl\obj\Debug\vorpstores_cl.csproj.AssemblyReference.cache

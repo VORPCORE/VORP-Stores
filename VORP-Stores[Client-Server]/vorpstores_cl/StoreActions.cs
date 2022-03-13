@@ -91,7 +91,7 @@ namespace vorpstores_cl
         }
         public static async Task SellItemTemplateStore(int storeId, int indexItem, int quantityItem)
         {
-            TriggerServerEvent("vorpstores:sellItems", GetConfig.Config["StoreTemplates"][StoreActions.LaststoreId]["ItemsSell"][indexItem]["Name"].ToString(), quantityItem, GetConfig.Config["StoreTemplates"][storeId]["ItemsSell"][indexItem]["SellPrice"].ToObject<double>());
+            TriggerServerEvent("vorpstores:sellItems", GetConfig.Config["StoreTemplates"][storeId]["ItemsSell"][indexItem]["Name"].ToString(), quantityItem, GetConfig.Config["StoreTemplates"][storeId]["ItemsSell"][indexItem]["SellPrice"].ToObject<double>());
         }
 
     }
