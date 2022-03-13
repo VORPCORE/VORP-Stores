@@ -79,10 +79,19 @@ namespace vorpstores_cl
         {
             TriggerServerEvent("vorpstores:buyItems", GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"][indexItem]["Name"].ToString(), quantityItem, GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"][indexItem]["BuyPrice"].ToObject<double>());
         }
-
+        
         public static async Task SellItemStore(int indexItem, int quantityItem)
         {
-            TriggerServerEvent("vorpstores:sellItems", GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsSell"][indexItem]["Name"].ToString(), quantityItem, GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsSell"][indexItem]["SellPrice"].ToObject<double>());
+            TriggerServerEvent("vorpstores:sellItems", GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsSell"][indexItem]["Name"].ToString(), quantityItem, GetConfig.Config["Stores"][LaststoreId]["ItemsSell"][indexItem]["SellPrice"].ToObject<double>());
+        }
+
+        public static async Task BuyItemTemplateStore(int storeId, int indexItem, int quantityItem)
+        {
+            TriggerServerEvent("vorpstores:buyItems", GetConfig.Config["StoreTemplates"][storeId]["ItemsBuy"][indexItem]["Name"].ToString(), quantityItem, GetConfig.Config["StoreTemplates"][storeId]["ItemsBuy"][indexItem]["BuyPrice"].ToObject<double>());
+        }
+        public static async Task SellItemTemplateStore(int storeId, int indexItem, int quantityItem)
+        {
+            TriggerServerEvent("vorpstores:sellItems", GetConfig.Config["StoreTemplates"][StoreActions.LaststoreId]["ItemsSell"][indexItem]["Name"].ToString(), quantityItem, GetConfig.Config["StoreTemplates"][storeId]["ItemsSell"][indexItem]["SellPrice"].ToObject<double>());
         }
 
     }

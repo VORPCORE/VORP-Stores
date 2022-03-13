@@ -70,7 +70,6 @@ namespace vorpstores_sv
         private void sellItems([FromSource]Player source, string name, int quantity, double cost)
         {
             int _source = int.Parse(source.Handle);
-            Debug.WriteLine(m_MessageDuration.ToString());
             string sid = "steam:" + source.Identifiers["steam"];
 
             double totalCost = (double)(cost * quantity);

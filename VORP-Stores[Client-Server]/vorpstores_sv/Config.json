@@ -5,49 +5,55 @@
     "DrawTextPosY": 0.9,
     "DrawTextSizeX": 0.4,
     "DrawTextSizeY": 0.4,
-    "MessageDuration" : 5 // in seconds
+    "MessageDuration": 5 // in seconds
   },
+
+  "StoreTemplates": [
+    {
+      "name": "GeneralStore",
+      "ItemsBuy": [
+        { "Name": "water", "BuyPrice": 2.0, "ObjectModel": "p_bottle02x" },
+        { "Name": "consumable_coffee", "BuyPrice": 2.0, "ObjectModel": "p_mugcoffee01x" }
+      ],
+      "ItemsSell": [
+        { "Name": "water", "SellPrice": 1.0, "ObjectModel": "p_bottle02x" },
+        { "Name": "consumable_coffee", "SellPrice": 1.0, "ObjectModel": "p_mugcoffee01x" }
+      ]
+    },
+    {
+      "name": "Trapper",
+      "ItemsBuy": [
+        { "Name": "water", "BuyPrice": 2.0, "ObjectModel": "p_bottle02x" },
+        { "Name": "consumable_coffee", "BuyPrice": 2.0, "ObjectModel": "p_mugcoffee01x" }
+      ],
+      "ItemsSell": [
+        { "Name": "water", "SellPrice": 1.0, "ObjectModel": "p_bottle02x" },
+        { "Name": "consumable_coffee", "SellPrice": 1.0, "ObjectModel": "p_mugcoffee01x" }
+      ]
+    }
+  ],
+
+
   "Stores": [
     {
-      "name": "Tienda General",
+      "name": "Tienda General",           // Template Store Example
       "BlipIcon": 1475879922,
-      "BlipEnabled": true,
-      "PedEnabled": true,
-      "CameraEnabled": true,
-      "SpawnObjects":  true,
+      "BlipEnabled": true,                // Enable/Disable show Blips
+      "PedEnabled": true,                 // Enable/Disable Spawn Ped's
+      "CameraEnabled": true,              // Enable/Disable Camera switch
+      "SpawnObjects": true,               // Enable/Disable Spawn Objects
+      "TemplateStore": true,              // Enable/Disable TemplateStore
+      "TemplateName": "GeneralStore",     // if enabled, you have to set the correct Template name
       "EnterStore": [ 2825.8, -1317.73, 46.6, 1.0 ],
       "CameraMain": [ 2825.823, -1318.022, 47.34337, -24.05971, 0.0, 139.5255 ],
       "NPCStore": [ 2824.49, -1319.49, 46.6, 324.58 ],
       "SpawnObjectStore": [ 2825.07, -1318.78, 46.81, 319.68 ],
       "NPCModel": "U_M_M_ValGenStoreOwner_01",
       "ItemsBuy": [
-        {
-          "Name": "consumable_coffee", // name in DB Items
-          "BuyPrice": 12.5,
-          "ObjectModel": "p_mugcoffee01x"
-        },
-        {
-          "Name": "consumable_peach", // name in DB Items
-          "BuyPrice": 12.5,
-          "ObjectModel": "s_peach01x"
-        },
-        {
-          "Name": "consumable_kidneybeans_can", // name in DB Items
-          "BuyPrice": 12.5,
-          "ObjectModel": "s_canbeansused01x"
-        }
+        // If you use a Template, you can leave this blank, this section is ignored by System
       ],
       "ItemsSell": [
-        {
-          "Name": "consumable_coffee", // name in DB Items
-          "SellPrice": 5.2,
-          "ObjectModel": "p_mugcoffee01x"
-        },
-        {
-          "Name": "consumable_kidneybeans_can", // name in DB Items
-          "SellPrice": 5.2,
-          "ObjectModel": "s_canbeansused01x"
-        }
+        // If you use a Template, you can leave this blank, this section is ignored by System
       ]
     },
     {
