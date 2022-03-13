@@ -6,6 +6,7 @@ namespace vorpstores_sv
     public class vorpstores_sv_init : BaseScript
     {
         public static dynamic CORE;
+        private int m_MessageDuration;
         public vorpstores_sv_init()
         {
             EventHandlers["vorpstores:buyItems"] += new Action<Player, string, int, double>(buyItems);
@@ -13,9 +14,11 @@ namespace vorpstores_sv
             TriggerEvent("getCore", new Action<dynamic>((dic) => {
                 CORE = dic;
             }));
+            m_MessageDuration = int.Parse(LoadConfig.Config["GeneralConfig"]["MessageDuration"].ToString()) * 1000;
         }
         private void buyItems([FromSource]Player source, string name, int quantity, double cost)
         {
+            Debug.WriteLine(m_MessageDuration.ToString());
             int _source = int.Parse(source.Handle);
 
             string sid = "steam:" + source.Identifiers["steam"];
@@ -28,7 +31,7 @@ namespace vorpstores_sv
                 int hisLimit = limit - count;
                 if (quantity > hisLimit && limit != -1)
                 {
-                    source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["NoMore"], LoadConfig.ItemsFromDB[name]["label"].ToString()), 4000);
+                    source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["NoMore"], LoadConfig.ItemsFromDB[name]["label"].ToString()), m_MessageDuration);
                 }
                 else
                 {
@@ -36,7 +39,7 @@ namespace vorpstores_sv
                     {
                         if (!can)
                         {
-                            source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["NoMore"], LoadConfig.ItemsFromDB[name]["label"].ToString()), 4000);
+                            source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["NoMore"], LoadConfig.ItemsFromDB[name]["label"].ToString()), m_MessageDuration);
                         }
                         else
                         {
@@ -47,10 +50,13 @@ namespace vorpstores_sv
                             {
                                 UserCharacter.removeCurrency(0, totalCost);
                                 TriggerEvent("vorpCore:addItem", _source, name, quantity);
+
+                                
+                                source.TriggerEvent("vorp:TipBottom", string.Format(LoadConfig.Langs["Bought"], quantity,  LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), m_MessageDuration);
                             }
                             else
                             {
-                                source.TriggerEvent("vorp:Tip", LoadConfig.Langs["NoMoney"], 4000);
+                                source.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["NoMoney"], m_MessageDuration);
                             }
                         }
 
@@ -64,7 +70,6 @@ namespace vorpstores_sv
         private void sellItems([FromSource]Player source, string name, int quantity, double cost)
         {
             int _source = int.Parse(source.Handle);
-
             string sid = "steam:" + source.Identifiers["steam"];
 
             double totalCost = (double)(cost * quantity);
@@ -75,13 +80,14 @@ namespace vorpstores_sv
                 int count = itemcount;
                 if (quantity > count)
                 {
-                    source.TriggerEvent("vorp:Tip", LoadConfig.Langs["NoEnought"], 4000);
+                    source.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["NoEnought"], m_MessageDuration);
                 }
                 else
                 {
                     UserCharacter.addCurrency(0, totalCost);
                     TriggerEvent("vorpCore:subItem", _source, name, quantity);
-                    source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["Sold"], quantity, LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), 4000);
+                    
+                    source.TriggerEvent("vorp:TipBottom", string.Format(LoadConfig.Langs["Sold"], quantity, LoadConfig.ItemsFromDB[name]["label"].ToString(), totalCost.ToString()), m_MessageDuration);
                 }
             }), name);
 

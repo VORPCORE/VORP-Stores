@@ -1,6 +1,7 @@
 ﻿using CitizenFX.Core;
 using MenuAPI;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace vorpstores_cl.Menus
@@ -47,41 +48,101 @@ namespace vorpstores_cl.Menus
 
             buyMenu.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
-                indexItem = _itemIndex;
-                quantityItem = _listIndex + 1;
-                double totalPrice = double.Parse(GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"][_itemIndex]["BuyPrice"].ToString()) * quantityItem;
-                buyMenuConfirm.MenuTitle = GetConfig.ItemsFromDB[GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"][_itemIndex]["Name"].ToString()]["label"].ToString();
-                subMenuConfirmBuyBtnYes.Label = string.Format(GetConfig.Langs["BuyConfirmButtonYes"], (_listIndex + 1).ToString(), GetConfig.ItemsFromDB[GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"][_itemIndex]["Name"].ToString()]["label"].ToString(), totalPrice.ToString());
+                if (isTemplateStore(StoreActions.LaststoreId))
+                {
+                    string storeTemplate = GetConfig.Config["Stores"][StoreActions.LaststoreId]["TemplateName"].ToString();
+                    int storeId = GetTemplateShopID(storeTemplate);
+                    indexItem = _itemIndex;
+                    quantityItem = _listIndex + 1;
+                    double totalPrice = double.Parse(GetConfig.Config["StoreTemplates"][storeId]["ItemsBuy"][_itemIndex]["BuyPrice"].ToString()) * quantityItem;
+                    buyMenuConfirm.MenuTitle = GetConfig.ItemsFromDB[GetConfig.Config["StoreTemplates"][storeId]["ItemsBuy"][_itemIndex]["Name"].ToString()]["label"].ToString();
+                    subMenuConfirmBuyBtnYes.Label = string.Format(GetConfig.Langs["BuyConfirmButtonYes"], (_listIndex + 1).ToString(), GetConfig.ItemsFromDB[GetConfig.Config["StoreTemplates"][storeId]["ItemsBuy"][_itemIndex]["Name"].ToString()]["label"].ToString(), totalPrice.ToString());
+                }
+                else
+                {
+                    indexItem = _itemIndex;
+                    quantityItem = _listIndex + 1;
+                    double totalPrice = double.Parse(GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"][_itemIndex]["BuyPrice"].ToString()) * quantityItem;
+                    buyMenuConfirm.MenuTitle = GetConfig.ItemsFromDB[GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"][_itemIndex]["Name"].ToString()]["label"].ToString();
+                    subMenuConfirmBuyBtnYes.Label = string.Format(GetConfig.Langs["BuyConfirmButtonYes"], (_listIndex + 1).ToString(), GetConfig.ItemsFromDB[GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"][_itemIndex]["Name"].ToString()]["label"].ToString(), totalPrice.ToString());
+                }
+
             };
 
             buyMenu.OnIndexChange += (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
             {
-                StoreActions.CreateObjectOnTable(_newIndex, "ItemsBuy");
+                if (isTemplateStore(StoreActions.LaststoreId))
+                {
+                    string storeTemplate = GetConfig.Config["Stores"][StoreActions.LaststoreId]["TemplateName"].ToString();
+                    int storeId = GetTemplateShopID(storeTemplate);
+                    StoreActions.CreateObjectOnTable(storeId, _newIndex, "ItemsBuy");
+                }
+                else
+                {
+                    StoreActions.CreateObjectOnTable(_newIndex, "ItemsBuy");
+                }
+
             };
 
             buyMenu.OnMenuOpen += (_menu) =>
             {
                 buyMenu.ClearMenuItems();
-
-                foreach (var item in GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"])
+                if (isTemplateStore(StoreActions.LaststoreId))
                 {
-                    MenuListItem _itemToBuy = new MenuListItem(GetConfig.ItemsFromDB[item["Name"].ToString()]["label"].ToString() + $" ${item["BuyPrice"]}", quantityList, 0, "")
+                    string storeTemplate = GetConfig.Config["Stores"][StoreActions.LaststoreId]["TemplateName"].ToString();
+                    int storeId = GetTemplateShopID(storeTemplate);
+                    foreach (var item in GetConfig.Config["StoreTemplates"][storeId]["ItemsBuy"])
                     {
+                        MenuListItem _itemToBuy = new MenuListItem(GetConfig.ItemsFromDB[item["Name"].ToString()]["label"].ToString() + $" ${item["BuyPrice"]}", quantityList, 0, "")
+                        {
 
-                    };
+                        };
 
-                    buyMenu.AddMenuItem(_itemToBuy);
-                    MenuController.BindMenuItem(buyMenu, buyMenuConfirm, _itemToBuy);
+                        buyMenu.AddMenuItem(_itemToBuy);
+                        MenuController.BindMenuItem(buyMenu, buyMenuConfirm, _itemToBuy);
+                    }
+                }
+                else
+                {
+                    foreach (var item in GetConfig.Config["Stores"][StoreActions.LaststoreId]["ItemsBuy"])
+                    {
+                        MenuListItem _itemToBuy = new MenuListItem(GetConfig.ItemsFromDB[item["Name"].ToString()]["label"].ToString() + $" ${item["BuyPrice"]}", quantityList, 0, "")
+                        {
+
+                        };
+
+                        buyMenu.AddMenuItem(_itemToBuy);
+                        MenuController.BindMenuItem(buyMenu, buyMenuConfirm, _itemToBuy);
+                    }
+                }
+                if (isTemplateStore(StoreActions.LaststoreId))
+                {
+                    string storeTemplate = GetConfig.Config["Stores"][StoreActions.LaststoreId]["TemplateName"].ToString();
+                    int storeId = GetTemplateShopID(storeTemplate);
+                    StoreActions.CreateObjectOnTable(storeId, _menu.CurrentIndex, "ItemsBuy");
+                }
+                else
+                {
+                    StoreActions.CreateObjectOnTable(_menu.CurrentIndex, "ItemsBuy");
                 }
 
-                StoreActions.CreateObjectOnTable(_menu.CurrentIndex, "ItemsBuy");
             };
 
             buyMenuConfirm.OnItemSelect += (_menu, _item, _index) =>
             {
                 if (_index == 0)
                 {
-                    StoreActions.BuyItemStore(indexItem, quantityItem);
+                    if (isTemplateStore(StoreActions.LaststoreId))
+                    {
+                        string storeTemplate = GetConfig.Config["Stores"][StoreActions.LaststoreId]["TemplateName"].ToString();
+                        int storeId = GetTemplateShopID(storeTemplate);
+                        StoreActions.BuyItemTemplateStore(storeId, indexItem, quantityItem);
+                    }
+                    else
+                    {
+                        StoreActions.BuyItemStore(indexItem, quantityItem);
+                    }
+
                     buyMenu.OpenMenu();
                     buyMenuConfirm.CloseMenu();
                 }
@@ -98,6 +159,22 @@ namespace vorpstores_cl.Menus
         {
             SetupMenu();
             return buyMenu;
+        }
+
+        private static bool isTemplateStore(int storeId)
+        {
+            return bool.Parse(GetConfig.Config["Stores"][storeId]["TemplateStore"].ToString());
+        }
+
+        private static int GetTemplateShopID(string name)
+        {
+            int result = 0;
+            for (int i = 0; i < GetConfig.Config["StoreTemplates"].Count(); i++)
+            {
+                if (GetConfig.Config["StoreTemplates"][i].ToString() == name)
+                    result = i;
+            }
+            return result;
         }
     }
 }

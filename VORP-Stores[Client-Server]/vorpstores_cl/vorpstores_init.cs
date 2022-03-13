@@ -26,29 +26,38 @@ namespace vorpstores_cl
                 uint HashPed = (uint)API.GetHashKey(ped);
                 await LoadModel(HashPed);
                 int blipIcon = int.Parse(store["BlipIcon"].ToString());
+                bool blipEnabled = bool.Parse(store["BlipEnabled"].ToString());
                 float x = float.Parse(store["EnterStore"][0].ToString());
                 float y = float.Parse(store["EnterStore"][1].ToString());
                 float z = float.Parse(store["EnterStore"][2].ToString());
+                bool pedEnabled = bool.Parse(store["PedEnabled"].ToString());
                 float Pedx = float.Parse(store["NPCStore"][0].ToString());
                 float Pedy = float.Parse(store["NPCStore"][1].ToString());
                 float Pedz = float.Parse(store["NPCStore"][2].ToString());
                 float Pedheading = float.Parse(store["NPCStore"][3].ToString());
 
-                int _blip = Function.Call<int>((Hash)0x554D9D53F696D002, 1664425300, x, y, z);
-                Function.Call((Hash)0x74F74D3207ED525C, _blip, blipIcon, 1);
-                Function.Call((Hash)0x9CB1A1623062F402, _blip, store["name"].ToString());
-                StoreBlips.Add(_blip);
+                if(blipEnabled)
+                {
+                    int _blip = Function.Call<int>((Hash)0x554D9D53F696D002, 1664425300, x, y, z);
+                    Function.Call((Hash)0x74F74D3207ED525C, _blip, blipIcon, 1);
+                    Function.Call((Hash)0x9CB1A1623062F402, _blip, store["name"].ToString());
+                    StoreBlips.Add(_blip);
+                }
 
-                int _PedShop = API.CreatePed(HashPed, Pedx, Pedy, Pedz, Pedheading, false, true, true, true);
-                Function.Call((Hash)0x283978A15512B2FE, _PedShop, true);
-                StorePeds.Add(_PedShop);
-                API.SetEntityNoCollisionEntity(API.PlayerPedId(), _PedShop, false);
-                API.SetEntityCanBeDamaged(_PedShop, false);
-                API.SetEntityInvincible(_PedShop, true);
-                await Delay(2000);
-                API.FreezeEntityPosition(_PedShop, true);
-                API.SetBlockingOfNonTemporaryEvents(_PedShop, true);
-                API.SetModelAsNoLongerNeeded(HashPed);
+                if(pedEnabled)
+                {
+                    int _PedShop = API.CreatePed(HashPed, Pedx, Pedy, Pedz, Pedheading, false, true, true, true);
+                    Function.Call((Hash)0x283978A15512B2FE, _PedShop, true);
+                    StorePeds.Add(_PedShop);
+                    API.SetEntityNoCollisionEntity(API.PlayerPedId(), _PedShop, false);
+                    API.SetEntityCanBeDamaged(_PedShop, false);
+                    API.SetEntityInvincible(_PedShop, true);
+                    await Delay(2000);
+                    API.FreezeEntityPosition(_PedShop, true);
+                    API.SetBlockingOfNonTemporaryEvents(_PedShop, true);
+                    API.SetModelAsNoLongerNeeded(HashPed);
+                }
+
             }
         }
 
@@ -65,11 +74,15 @@ namespace vorpstores_cl
                 float x = float.Parse(GetConfig.Config["Stores"][i]["EnterStore"][0].ToString());
                 float y = float.Parse(GetConfig.Config["Stores"][i]["EnterStore"][1].ToString());
                 float z = float.Parse(GetConfig.Config["Stores"][i]["EnterStore"][2].ToString());
+                float dtposX = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextPosX"].ToString());
+                float dtposY = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextPosY"].ToString());
+                float dtsizeX = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextSizeX"].ToString());
+                float dtsizeY = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextSizeY"].ToString());
                 float radius = float.Parse(GetConfig.Config["Stores"][i]["EnterStore"][3].ToString());
 
                 if (API.GetDistanceBetweenCoords(pCoords.X, pCoords.Y, pCoords.Z, x, y, z, true) <= radius)
                 {
-                    await DrawTxt(GetConfig.Langs["PressToOpen"], 0.5f, 0.9f, 0.7f, 0.7f, 255, 255, 255, 255, true, true);
+                    await DrawTxt(GetConfig.Langs["PressToOpen"], dtposX, dtposY, dtsizeX, dtsizeY, 255, 255, 255, 255, true, true);
                     if (API.IsControlJustPressed(2, 0xD9D0E1C0))
                     {
                         await StoreActions.EnterBuyStore(i);

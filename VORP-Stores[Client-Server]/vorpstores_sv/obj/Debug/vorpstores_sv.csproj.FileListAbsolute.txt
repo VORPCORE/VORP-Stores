@@ -21,3 +21,10 @@ D:\[VORP]\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_sv\obj\Debug\vorpsto
 D:\[VORP]\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_sv\obj\Debug\vorpstores_sv.csproj.CoreCompileInputs.cache
 D:\[VORP]\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_sv\obj\Debug\vorpstores_sv.net.dll
 D:\[VORP]\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_sv\obj\Debug\vorpstores_sv.net.pdb
+F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_sv\obj\Debug\vorpstores_sv.csproj.CoreCompileInputs.cache
+F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_sv\obj\Debug\vorpstores_sv.net.dll
+F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\vorpstores_sv\obj\Debug\vorpstores_sv.net.pdb
+F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\build\vorp_stores\Config.json
+F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\build\vorp_stores\Es.json
+F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\build\vorp_stores\vorpstores_sv.net.dll
+F:\Dev\RedM Development\VORP\VORP-Stores\VORP-Stores[Client-Server]\build\vorp_stores\vorpstores_sv.net.pdb
