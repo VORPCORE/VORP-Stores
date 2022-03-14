@@ -14,5 +14,17 @@
 * To change the language go to ```resources/vorp_stores/Config``` and change the default language
 * Now you are ready!
 
+
 ## Wiki
 [Wiki VORP Stores](http://docs.vorpcore.com:3000/vorp-stores)
+
+## New Features
+1. new general Store Configuration:
+   - Setup Fontscale and size
+   - Setup DrawText position
+   - Setup a message duration
+2. Enable/Disable show Blips
+3. Enable/Disable spawn Ped's
+4. Enable/Disable switch Camera position
+5. Enable/Disable spawn Objects (you should also disable this, if CameraEnable disabled, but not needed)
+6. Enable/Disable JobOnly stores (you can setup multiple jobs, see Config for an example)

@@ -1,6 +1,7 @@
 ﻿using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace vorpstores_cl
         public static List<int> StorePeds = new List<int>();
         public vorpstores_init()
         {
+            EventHandlers["vorpstores:C:OpenMenu"] += new Action<int>(OpenMenu);
             Tick += onStore;
         }
 
@@ -85,7 +87,8 @@ namespace vorpstores_cl
                     await DrawTxt(GetConfig.Langs["PressToOpen"], dtposX, dtposY, dtsizeX, dtsizeY, 255, 255, 255, 255, true, true);
                     if (API.IsControlJustPressed(2, 0xD9D0E1C0))
                     {
-                        await StoreActions.EnterBuyStore(i);
+                        //await StoreActions.EnterBuyStore(i);
+                        TriggerServerEvent("vorpstores:S:checkJob", i);
                     }
                 }
 
@@ -120,6 +123,10 @@ namespace vorpstores_cl
                 Debug.WriteLine($"Model {hash} is not valid!");
                 return false;
             }
+        }
+        private static void OpenMenu(int storeId)
+        {
+            StoreActions.EnterBuyStore(storeId);
         }
     }
 }

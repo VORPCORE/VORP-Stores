@@ -11,6 +11,7 @@ namespace vorpstores_sv
         {
             EventHandlers["vorpstores:buyItems"] += new Action<Player, string, int, double>(buyItems);
             EventHandlers["vorpstores:sellItems"] += new Action<Player, string, int, double>(sellItems);
+            EventHandlers["vorpstores:S:checkJob"] += new Action<Player, int>(checkJob);
             TriggerEvent("getCore", new Action<dynamic>((dic) => {
                 CORE = dic;
             }));
@@ -18,7 +19,6 @@ namespace vorpstores_sv
         }
         private void buyItems([FromSource]Player source, string name, int quantity, double cost)
         {
-            Debug.WriteLine(m_MessageDuration.ToString());
             int _source = int.Parse(source.Handle);
 
             string sid = "steam:" + source.Identifiers["steam"];
@@ -91,6 +91,28 @@ namespace vorpstores_sv
                 }
             }), name);
 
+        }
+
+        private void checkJob([FromSource]Player source, int storeId )
+        {
+            if (!bool.Parse(LoadConfig.Config["Stores"][storeId]["IsJobStore"].ToString()))
+                source.TriggerEvent("vorpstores:C:OpenMenu", storeId);
+            else if (HasPlayerJob(int.Parse(source.Handle), storeId))
+                source.TriggerEvent("vorpstores:C:OpenMenu", storeId);
+            else
+                source.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["NoJob"], m_MessageDuration);
+        }
+
+        private static bool HasPlayerJob(int source, int storeId)
+        {
+            dynamic Character = CORE.getUser(source).getUsedCharacter;
+            bool result = false;
+            foreach (var job in LoadConfig.Config["Stores"][storeId]["Jobs"])
+            {
+                if (job.ToString() == Character.job)
+                    result = true;
+            }
+            return result;
         }
 
     }

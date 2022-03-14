@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using MenuAPI;
 using System;
 using static CitizenFX.Core.Native.API;
 
@@ -26,6 +27,8 @@ namespace vorpstores_cl
                 int _ped = npc;
                 DeletePed(ref _ped);
             }
+            StoreActions.ExitBuyStore();
+            MenuController.CloseAllMenus();
         }
 
     }

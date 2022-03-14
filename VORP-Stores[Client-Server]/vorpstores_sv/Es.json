@@ -16,5 +16,6 @@
   "NoEnought": "No tienes suficientes articulos",
   "Bought": "Has comprado {0} {1} por ${2}",
   "Sold": "Has vendido {0} {1} por ${2}",
-  "PressToOpen": "Pulsa [~e~Espacio~q~] para acceder a la tienda"
+  "PressToOpen": "Pulsa [~e~Espacio~q~] para acceder a la tienda",
+  "NoJob": "Lamentablemente no puedes comprar aquí"
 }
