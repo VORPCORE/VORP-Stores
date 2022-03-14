@@ -78,13 +78,13 @@ namespace vorpstores_cl
                 float z = float.Parse(GetConfig.Config["Stores"][i]["EnterStore"][2].ToString());
                 float dtposX = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextPosX"].ToString());
                 float dtposY = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextPosY"].ToString());
-                float dtsizeX = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextSizeX"].ToString());
-                float dtsizeY = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextSizeY"].ToString());
+                float dtscale = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextScale"].ToString());
+                float dtsize = float.Parse(GetConfig.Config["GeneralConfig"]["DrawTextSize"].ToString());
                 float radius = float.Parse(GetConfig.Config["Stores"][i]["EnterStore"][3].ToString());
 
                 if (API.GetDistanceBetweenCoords(pCoords.X, pCoords.Y, pCoords.Z, x, y, z, true) <= radius)
                 {
-                    await DrawTxt(GetConfig.Langs["PressToOpen"], dtposX, dtposY, dtsizeX, dtsizeY, 255, 255, 255, 255, true, true);
+                    await DrawTxt(GetConfig.Langs["PressToOpen"], dtposX, dtposY, dtscale, dtsize, 255, 255, 255, 255, true, true);
                     if (API.IsControlJustPressed(2, 0xD9D0E1C0))
                     {
                         //await StoreActions.EnterBuyStore(i);
