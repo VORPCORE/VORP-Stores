@@ -3,8 +3,8 @@
   "GeneralConfig": {
     "DrawTextPosX": 0.5,
     "DrawTextPosY": 0.9,
-    "DrawTextSizeX": 0.4,
-    "DrawTextSizeY": 0.4,
+    "DrawTextScale": 0.4,
+    "DrawTextSize": 0.4,
     "MessageDuration": 5 // in seconds
   },
 
@@ -37,7 +37,7 @@
   "Stores": [
     {
       "name": "Tienda General",           // Template Store Example
-      "BlipIcon": 1475879922,
+      "BlipIcon": 1475879922,             // look at https://filmcrz.github.io/blips/ for blip Hashes
       "BlipEnabled": true,                // Enable/Disable show Blips
       "PedEnabled": true,                 // Enable/Disable Spawn Ped's
       "CameraEnabled": true,              // Enable/Disable Camera switch
@@ -45,7 +45,7 @@
       "TemplateStore": true,              // Enable/Disable TemplateStore
       "TemplateName": "GeneralStore",     // if enabled, you have to set the correct Template name
       "IsJobStore": true,                 // Enable/Disable Store use only with Job
-      "Jobs": ["Doctor", "police"],       // Joblist who had access to the Store
+      "Jobs": ["doctor", "police"],       // Joblist who had access to the Store
       "EnterStore": [ 2825.8, -1317.73, 46.6, 1.0 ],
       "CameraMain": [ 2825.823, -1318.022, 47.34337, -24.05971, 0.0, 139.5255 ],
       "NPCStore": [ 2824.49, -1319.49, 46.6, 324.58 ],

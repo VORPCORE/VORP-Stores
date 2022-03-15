@@ -171,7 +171,7 @@ namespace vorpstores_cl.Menus
             int result = 0;
             for (int i = 0; i < GetConfig.Config["StoreTemplates"].Count(); i++)
             {
-                if (GetConfig.Config["StoreTemplates"][i].ToString() == name)
+                if (GetConfig.Config["StoreTemplates"][i]["name"].ToString() == name)
                     result = i;
             }
             return result;
