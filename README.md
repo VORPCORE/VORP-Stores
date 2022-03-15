@@ -28,3 +28,5 @@
 4. Enable/Disable switch Camera position
 5. Enable/Disable spawn Objects (you should also disable this, if CameraEnable disabled, but not needed)
 6. Enable/Disable JobOnly stores (you can setup multiple jobs, see Config for an example)
+## 2022 NEW FEATURES 
+<img width="902" alt="image" src="https://user-images.githubusercontent.com/87246847/158469783-cd341b2a-7d39-485e-8deb-0e0fc96d2e66.png">
