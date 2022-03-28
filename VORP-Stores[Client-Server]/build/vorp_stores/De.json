@@ -1,0 +1,20 @@
+{
+    "DescMainMenu": "Kaufen & Verkaufen",
+    "Quantity": "Menge",
+    "BuyButton": "Kaufen",
+    "BuyMenuDesc": "Artikel kaufen",
+    "BuyMenuConfirmDesc": "Bestätigen",
+    "BuyConfirmButtonYes": "Kaufe {0} {1} für ${2}",
+    "BuyConfirmButtonNo": "Stornieren",
+    "SellButton": "Verkaufen",
+    "SellMenuDesc": "Artikel verkaufen",
+    "SellMenuConfirmDesc": "Bestätigen",
+    "SellConfirmButtonYes": "Verkaufe {0} {1} für ${2}",
+    "SellConfirmButtonNo": "Stornieren",
+    "NoMoney": "Du hast nicht genug Geld",
+    "NoMore": "Du kannst nicht mehr tragen {0}",
+    "NoEnought": "Du hast nicht genügend Artikel",
+    "Bought": "Du kaufst {0} {1} für ${2}",
+    "Sold": "Du Verkaufst {0} {1} für ${2}",
+    "PressToOpen": "Drücke [~e~Space~q~] um einzukaufen"
+}
